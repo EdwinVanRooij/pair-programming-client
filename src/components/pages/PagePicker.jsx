@@ -25,14 +25,14 @@ class PagePicker extends React.Component {
             <div>
                 <ul style={ul_style}>
                     <li style={li_style}>
-                        <button className="button large primary large-centered expanded"
+                        <button className="button large primary expanded"
                                 onClick={this.props.onEditorClick}>
                             New Editor
                         </button>
                     </li>
                     <li>
                         <button style={button_style_bottom}
-                                className="button hollow large secondary large-centered expanded"
+                                className="button hollow large secondary expanded"
                                 onClick={this.props.onJoinEditorClick}>
                             Join Editor
                         </button>

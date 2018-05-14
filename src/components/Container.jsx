@@ -21,7 +21,7 @@ function HomeButton(props) {
     return (
         <div className="row">
             <div className="small-6 small-centered text-center columns">
-                <button className="button hollow large secondary large-centered"
+                <button className="button hollow small secondary large-centered"
                         onClick={props.onClick}>Home
                 </button>
             </div>
@@ -83,7 +83,7 @@ class Container extends React.Component {
                     <div>
                         {this.renderTitle()}
                         <div style={row_item_style} className="callout">
-                            <Editor/>
+                            <Editor code="dipi"/>
                         </div>
                         <HomeButton className="home-button" onClick={() => this.handleHomeClick()}/>
                     </div>
