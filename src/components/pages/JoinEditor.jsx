@@ -23,11 +23,28 @@ class JoinEditor extends React.Component {
         event.preventDefault();
         const code = this.state.value;
 
-        if (code.match(/^[a-zA-Z]+$/)) {
-            alert('valid code ' + code)
-        } else {
-            alert('invalid code ' + code)
+        // Check if code is a UUID
+        if (!code.match(/^[\w]{8}-[\w]{4}-[\w]{4}-[\w]{4}-[\w]{12}$/)) {
+            alert('Invalid code \'' + code + '\'.');
+            return;
         }
+
+        fetch('http://localhost:4567/joinEditor?code=' + code)
+            .then(response => {
+                if (response.ok) {
+                    const jsonResponse = response.json();
+                    jsonResponse.then(json => {
+                        console.log(json);
+                        this.props.onSuccessfulJoin(code);
+                    });
+                } else {
+                    const jsonResponse = response.json();
+                    jsonResponse.then(json => {
+                        alert(json.message);
+                        console.error(json.message);
+                    });
+                }
+            })
     }
 
     render() {

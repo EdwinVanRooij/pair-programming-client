@@ -35,11 +35,14 @@ class Container extends React.Component {
 
         this.state = {
             currentScreen: 'pagePicker',
+            code: '',
         };
 
         this.handleEditor = this.handleEditor.bind(this);
         this.handleJoinEditor = this.handleJoinEditor.bind(this);
         this.handleHomeClick = this.handleHomeClick.bind(this);
+
+        this.handleSuccessfulJoin = this.handleSuccessfulJoin.bind(this);
     }
 
     handleEditor() {
@@ -51,7 +54,17 @@ class Container extends React.Component {
     }
 
     handleHomeClick() {
-        this.setState({currentScreen: 'pagePicker'});
+        this.setState({
+            currentScreen: 'pagePicker',
+            code: '',
+        });
+    }
+
+    handleSuccessfulJoin(code) {
+        this.setState({
+            currentScreen: 'editor',
+            code: code,
+        });
     }
 
     renderTitle() {
@@ -83,7 +96,7 @@ class Container extends React.Component {
                     <div>
                         {this.renderTitle()}
                         <div style={row_item_style} className="callout">
-                            <Editor code="dipi"/>
+                            <Editor code={this.state.code}/>
                         </div>
                         <HomeButton className="home-button" onClick={() => this.handleHomeClick()}/>
                     </div>
@@ -94,7 +107,7 @@ class Container extends React.Component {
                     <div>
                         {this.renderTitle()}
                         <div style={row_item_style} className="callout">
-                            <JoinEditor/>
+                            <JoinEditor onSuccessfulJoin={(value) => this.handleSuccessfulJoin(value)}/>
                         </div>
                         <HomeButton className="home-button" onClick={() => this.handleHomeClick()}/>
                     </div>
