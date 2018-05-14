@@ -8,10 +8,8 @@ class Editor extends React.Component {
     render() {
         return (
             <div>
-                <label>
-                    <h5>Code: {this.props.code}</h5>
-                    <textarea style={button_style_bottom} placeholder="Hello World!" cols="30" rows="10"/>
-                </label>
+                <h5>Code: {this.props.code}</h5>
+                <textarea id="textArea" style={button_style_bottom} placeholder="Hello World!" cols="50" rows="25"/>
             </div>
         );
     }
