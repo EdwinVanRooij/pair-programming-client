@@ -2,12 +2,6 @@ import React from 'react';
 
 import '../../foundation.min.css';
 
-const background_color_title = {
-    backgroundColor: "#074E68",
-};
-const title_style = {
-    color: "white",
-};
 
 const row_item_style = {
     maxWidth: "60rem",
@@ -15,8 +9,20 @@ const row_item_style = {
     marginLeft: "auto",
 };
 
-const button_style = {
-    margin: "0.5rem",
+const button_style_bottom = {
+    marginBottom: 0,
+};
+
+const li_style = {
+    margin: 0,
+    padding: 0,
+};
+
+const ul_style = {
+    listStyle: "none",
+    margin: 0,
+    padding: 0,
+    fontSize: 0,
 };
 
 class PagePickContainer extends React.Component {
@@ -24,16 +30,11 @@ class PagePickContainer extends React.Component {
     render() {
         return (
             <div>
-                <div>
-                    <div className="callout large" style={background_color_title}>
-                        <h1 style={title_style}>Pair Programming</h1>
-                    </div>
-                </div>
-                <div className="row align-center" style={row_item_style}>
-                    <ul className="callout no-bullet small-12 column text-center">
-                        <li>
-                            <button style={button_style} className="button large primary large-centered"
-                                    onClick={this.props.onClickNewEditor}>
+                <div style={row_item_style} className="callout small-12 column text-center">
+                    <ul style={ul_style}>
+                        <li style={li_style}>
+                            <button className="button large primary large-centered expanded"
+                                    onClick={this.props.onEditorClick}>
                                 New Editor
                             </button>
 
@@ -42,8 +43,9 @@ class PagePickContainer extends React.Component {
                             {/*subtitle={"View your timeline"}/>*/}
                         </li>
                         <li>
-                            <button style={button_style} className="button hollow large secondary large-centered"
-                                    onClick={this.props.onClickJoinEditor}>
+                            <button style={button_style_bottom}
+                                    className="button hollow large secondary large-centered expanded"
+                                    onClick={this.props.onJoinEditorClick}>
                                 Join Editor
                             </button>
                             {/*<PagePickItem class="page-pick-item" onClick={() => this.props.onProfileClick()}*/}

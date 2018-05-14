@@ -1,8 +1,15 @@
 import React from 'react';
 import PagePickContainer from './picker/PagePickContainer';
-import Timeline from './page/timeline/Timeline';
-import Profile from './page/profile/Profile';
+import Editor from './page/editor/Editor';
+import JoinEditor from './page/joineditor/JoinEditor';
 import '../foundation.min.css';
+
+const background_color_title = {
+    backgroundColor: "#074E68",
+};
+const title_style = {
+    color: "white",
+};
 
 function HomeButton(props) {
     return (
@@ -24,21 +31,31 @@ class Container extends React.Component {
             currentScreen: 'pagePicker',
         };
 
-        this.handleTimeline = this.handleTimeline.bind(this);
-        this.handleProfile = this.handleProfile.bind(this);
+        this.handleEditor = this.handleEditor.bind(this);
+        this.handleJoinEditor = this.handleJoinEditor.bind(this);
         this.handleHomeClick = this.handleHomeClick.bind(this);
     }
 
-    handleTimeline() {
-        this.setState({currentScreen: 'timeline'});
+    handleEditor() {
+        this.setState({currentScreen: 'editor'});
     }
 
-    handleProfile() {
-        this.setState({currentScreen: 'profile'});
+    handleJoinEditor() {
+        this.setState({currentScreen: 'joinEditor'});
     }
 
     handleHomeClick() {
         this.setState({currentScreen: 'pagePicker'});
+    }
+
+    renderTitle() {
+        return (
+            <div>
+                <div className="callout large" style={background_color_title}>
+                    <h1 style={title_style}>Pair Programming</h1>
+                </div>
+            </div>
+        )
     }
 
     render() {
@@ -46,23 +63,26 @@ class Container extends React.Component {
             case 'pagePicker': {
                 return (
                     <div>
-                        <PagePickContainer onTimelineClick={() => this.handleTimeline()}
-                                           onProfileClick={() => this.handleProfile()}/>
+                        {this.renderTitle()}
+                        <PagePickContainer onEditorClick={() => this.handleEditor()}
+                                           onJoinEditorClick={() => this.handleJoinEditor()}/>
                     </div>
                 );
             }
-            case 'timeline': {
+            case 'editor': {
                 return (
                     <div>
-                        <Timeline accountId="21"/>
+                        {this.renderTitle()}
+                        <Editor/>
                         <HomeButton className="home-button" onClick={() => this.handleHomeClick()}/>
                     </div>
                 );
             }
-            case 'profile': {
+            case 'joinEditor': {
                 return (
                     <div>
-                        <Profile accountId="21"/>
+                        {this.renderTitle()}
+                        <JoinEditor/>
                         <HomeButton className="home-button" onClick={() => this.handleHomeClick()}/>
                     </div>
                 );

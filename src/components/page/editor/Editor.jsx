@@ -1,15 +1,13 @@
 import React from 'react';
 
-
-class Profile extends React.Component {
-
+class Editor extends React.Component {
     render() {
         return (
             <div>
-                Profile page.
+                Editor page
             </div>
         );
     }
 }
 
-export default Profile;
+export default Editor;

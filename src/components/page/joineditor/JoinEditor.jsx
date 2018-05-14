@@ -1,13 +1,15 @@
 import React from 'react';
 
-class Timeline extends React.Component {
+
+class JoinEditor extends React.Component {
+
     render() {
         return (
             <div>
-                Timeline page.
+                Join Editor page
             </div>
         );
     }
 }
 
-export default Timeline;
+export default JoinEditor;
