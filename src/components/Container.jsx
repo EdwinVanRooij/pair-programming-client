@@ -1,7 +1,7 @@
 import React from 'react';
-import PagePickContainer from './picker/PagePickContainer';
-import Editor from './page/editor/Editor';
-import JoinEditor from './page/joineditor/JoinEditor';
+import PagePicker from './pages/PagePicker';
+import Editor from './pages/Editor';
+import JoinEditor from './pages/JoinEditor';
 import '../foundation.min.css';
 
 const background_color_title = {
@@ -10,6 +10,12 @@ const background_color_title = {
 const title_style = {
     color: "white",
 };
+const row_item_style = {
+    maxWidth: "60rem",
+    marginRight: "auto",
+    marginLeft: "auto",
+};
+
 
 function HomeButton(props) {
     return (
@@ -58,14 +64,17 @@ class Container extends React.Component {
         )
     }
 
+
     render() {
         switch (this.state.currentScreen) {
             case 'pagePicker': {
                 return (
                     <div>
                         {this.renderTitle()}
-                        <PagePickContainer onEditorClick={() => this.handleEditor()}
-                                           onJoinEditorClick={() => this.handleJoinEditor()}/>
+                        <div style={row_item_style} className="callout">
+                            <PagePicker onEditorClick={() => this.handleEditor()}
+                                        onJoinEditorClick={() => this.handleJoinEditor()}/>
+                        </div>
                     </div>
                 );
             }
@@ -73,7 +82,9 @@ class Container extends React.Component {
                 return (
                     <div>
                         {this.renderTitle()}
-                        <Editor/>
+                        <div style={row_item_style} className="callout">
+                            <Editor/>
+                        </div>
                         <HomeButton className="home-button" onClick={() => this.handleHomeClick()}/>
                     </div>
                 );
@@ -82,7 +93,9 @@ class Container extends React.Component {
                 return (
                     <div>
                         {this.renderTitle()}
-                        <JoinEditor/>
+                        <div style={row_item_style} className="callout">
+                            <JoinEditor/>
+                        </div>
                         <HomeButton className="home-button" onClick={() => this.handleHomeClick()}/>
                     </div>
                 );
