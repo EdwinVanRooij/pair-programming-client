@@ -9,7 +9,7 @@ class Editor extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {code: 'default'};
+        this.state = {code: 'default', text: ''};
     }
 
     componentDidMount() {
@@ -25,13 +25,31 @@ class Editor extends React.Component {
         }
 
         // Initiate WebSocket connection
+        // this is an "echo" websocket service for testing pusposes
+        this.connection = new WebSocket('ws://145.93.62.78:8085');
+        // ws://145.93.62.78:8085
+
+        // listen to onmessage event
+        this.connection.onmessage = evt => {
+            // add the new message to state
+            this.setState({
+                text: evt.data
+            })
+        };
+
+        // for testing: sending a message to the echo service every 2 seconds,
+        // the service sends it right back
+        // setInterval(_ => {
+        //     this.connection.send("samplemessage");
+        // }, 2000)
     }
 
     render() {
         return (
             <div>
                 <h5>Code: {this.state.code}</h5>
-                <textarea id="textArea" style={button_style_bottom} placeholder="Hello World!" cols="50" rows="25"/>
+                <textarea value={this.state.text} id="textArea" style={button_style_bottom} placeholder="Hello World!"
+                          cols="50" rows="25"/>
             </div>
         );
     }
