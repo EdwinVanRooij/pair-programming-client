@@ -10,6 +10,8 @@ class Editor extends React.Component {
         super(props);
 
         this.state = {code: 'default', text: ''};
+
+        this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount() {
@@ -26,14 +28,16 @@ class Editor extends React.Component {
 
         // Initiate WebSocket connection
         // this is an "echo" websocket service for testing pusposes
-        this.connection = new WebSocket('ws://145.93.62.78:8085');
+        //this.connection = new WebSocket('ws://145.93.62.78:8086');
+        this.connection = new WebSocket('ws://145.93.62.151:8086');
+        // this.connection = new WebSocket('ws://192.168.34.25:8085'); // adversitement
         // ws://145.93.62.78:8085
 
         // listen to onmessage event
         this.connection.onmessage = evt => {
             // add the new message to state
             this.setState({
-                text: evt.data
+                text: JSON.parse(evt.data).message
             })
         };
 
@@ -44,11 +48,23 @@ class Editor extends React.Component {
         // }, 2000)
     }
 
+    handleChange(event) {
+        const text = event.target.value;
+        this.setState({text: text});
+        this.connection.send(text);
+        // this.connection.send("{\"message\": \"" + text + "\"}");
+    }
+
     render() {
         return (
             <div>
                 <h5>Code: {this.state.code}</h5>
-                <textarea value={this.state.text} id="textArea" style={button_style_bottom} placeholder="Hello World!"
+
+                <textarea value={this.state.text}
+                          id="textArea"
+                          style={button_style_bottom}
+                          onChange={this.handleChange}
+                          placeholder="Hello World!"
                           cols="50" rows="25"/>
             </div>
         );
