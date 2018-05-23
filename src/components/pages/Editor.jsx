@@ -29,7 +29,8 @@ class Editor extends React.Component {
         // Initiate WebSocket connection
         // this is an "echo" websocket service for testing pusposes
         //this.connection = new WebSocket('ws://145.93.62.78:8086');
-        this.connection = new WebSocket('ws://145.93.62.151:8086');
+        // this.connection = new WebSocket('ws://145.93.62.151:8086');
+        this.connection = new WebSocket('ws://192.168.99.1:8086');
         // this.connection = new WebSocket('ws://192.168.34.25:8085'); // adversitement
         // ws://145.93.62.78:8085
 
