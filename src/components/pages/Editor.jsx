@@ -14,24 +14,18 @@ class Editor extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    componentDidMount() {
-        if (this.props.code) {
-            console.log("We have a code! It's '" + this.props.code + "'");
-            this.setState({code: this.props.code})
-        } else {
-            console.log("We do not have a code. Requesting a new one.");
-            fetch('http://localhost:4567/newEditor')
-                .then(response => response.json())
-                .then(jsonResponse => this.setState({code: jsonResponse.message}))
-                .catch(error => console.error(error))
-        }
+    connectWebSocket() {
+        this.connection = new WebSocket('ws://192.168.2.96:8086');
 
-        // Initiate WebSocket connection
-        // this is an "echo" websocket service for testing pusposes
-        //this.connection = new WebSocket('ws://145.93.62.78:8086');
-        // this.connection = new WebSocket('ws://145.93.62.151:8086');
-        // this.connection = new WebSocket('ws://192.168.99.1:8086');
-        this.connection = new WebSocket('ws://145.93.61.35:8086');
+        this.connection.onopen = evt => {
+            console.log("Connection opened, joining exchange with code '" + this.state.code + "'");
+            const message = {
+                "version": "1.0.0",
+                "type": "JOIN_EXCHANGE",
+                "message": this.state.code,
+            };
+            this.connection.send(JSON.stringify(message));
+        };
         // this.connection = new WebSocket('ws://192.168.34.25:8085'); // adversitement
         // ws://145.93.62.78:8085
 
@@ -42,6 +36,28 @@ class Editor extends React.Component {
                 text: JSON.parse(evt.data).message
             })
         };
+    }
+
+    componentDidMount() {
+        if (this.props.code) {
+            console.log("We have a code! It's '" + this.props.code + "'");
+            this.setState({code: this.props.code});
+            this.connectWebSocket();
+        } else {
+            console.log("We do not have a code. Requesting a new one.");
+            fetch('http://localhost:4567/newEditor')
+                .then(response => response.json())
+                .then(jsonResponse => this.setState({code: jsonResponse.message}))
+                .then(thing => this.connectWebSocket())
+                .catch(error => console.error(error))
+        }
+
+        // Initiate WebSocket connection
+        // this is an "echo" websocket service for testing pusposes
+        //this.connection = new WebSocket('ws://145.93.62.78:8086');
+        // this.connection = new WebSocket('ws://145.93.62.151:8086');
+        // this.connection = new WebSocket('ws://192.168.99.1:8086');
+        // this.connection = new WebSocket('ws://145.93.61.35:8086');
 
         // for testing: sending a message to the echo service every 2 seconds,
         // the service sends it right back
@@ -53,8 +69,13 @@ class Editor extends React.Component {
     handleChange(event) {
         const text = event.target.value;
         this.setState({text: text});
-        this.connection.send(text);
-        // this.connection.send("{\"message\": \"" + text + "\"}");
+
+        const message = {
+            "version": "1.0.0",
+            "type": "NEW_MESSAGE",
+            "message": text,
+        };
+        this.connection.send(JSON.stringify(message));
     }
 
     render() {
