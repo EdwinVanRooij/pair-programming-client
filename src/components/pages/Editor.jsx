@@ -58,7 +58,6 @@ class Editor extends React.Component {
         // this.connection = new WebSocket('ws://145.93.62.151:8086');
         // this.connection = new WebSocket('ws://192.168.99.1:8086');
         // this.connection = new WebSocket('ws://145.93.61.35:8086');
-<<<<<<< HEAD
         this.connection = new WebSocket('ws://145.93.62.81:8086');
         // this.connection = new WebSocket('ws://192.168.34.25:8085'); // adversitement
         // ws://145.93.62.78:8085
@@ -70,8 +69,6 @@ class Editor extends React.Component {
                 text: JSON.parse(evt.data).message
             })
         };
-=======
->>>>>>> c91f9349b6387669c452eb321886b93823f8c3b7
 
         // for testing: sending a message to the echo service every 2 seconds,
         // the service sends it right back
