@@ -15,7 +15,7 @@ class Editor extends React.Component {
     }
 
     connectWebSocket() {
-        this.connection = new WebSocket('ws://192.168.2.96:8086');
+        this.connection = new WebSocket('ws://192.168.2.130:8086');
 
         this.connection.onopen = evt => {
             console.log("Connection opened, joining exchange with code '" + this.state.code + "'");
@@ -51,25 +51,6 @@ class Editor extends React.Component {
                 .then(thing => this.connectWebSocket())
                 .catch(error => console.error(error))
         }
-
-        // Initiate WebSocket connection
-        // this is an "echo" websocket service for testing pusposes
-        //this.connection = new WebSocket('ws://145.93.62.78:8086');
-        // this.connection = new WebSocket('ws://145.93.62.151:8086');
-        // this.connection = new WebSocket('ws://192.168.99.1:8086');
-        // this.connection = new WebSocket('ws://145.93.61.35:8086');
-        this.connection = new WebSocket('ws://145.93.62.81:8086');
-        // this.connection = new WebSocket('ws://192.168.34.25:8085'); // adversitement
-        // ws://145.93.62.78:8085
-
-        // listen to onmessage event
-        this.connection.onmessage = evt => {
-            // add the new message to state
-            this.setState({
-                text: JSON.parse(evt.data).message
-            })
-        };
-
         // for testing: sending a message to the echo service every 2 seconds,
         // the service sends it right back
         // setInterval(_ => {
