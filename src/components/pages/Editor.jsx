@@ -15,7 +15,7 @@ class Editor extends React.Component {
     }
 
     connectWebSocket() {
-        this.connection = new WebSocket('ws://192.168.2.130:8086');
+        this.connection = new WebSocket('ws://145.93.62.41:8086');
 
         this.connection.onopen = evt => {
             console.log("Connection opened, joining exchange with code '" + this.state.code + "'");
