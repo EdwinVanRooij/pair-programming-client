@@ -29,7 +29,7 @@ class JoinEditor extends React.Component {
             return;
         }
 
-        fetch('http://localhost:4567/joinEditor?code=' + code)
+        fetch('http://145.93.62.41:4567/joinEditor?code=' + code)
             .then(response => {
                 if (response.ok) {
                     const jsonResponse = response.json();
