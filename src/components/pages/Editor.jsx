@@ -4,6 +4,8 @@ const button_style_bottom = {
     marginBottom: 0,
 };
 
+const ip = 'localhost';
+
 class Editor extends React.Component {
 
     constructor(props) {
@@ -15,7 +17,7 @@ class Editor extends React.Component {
     }
 
     connectWebSocket() {
-        this.connection = new WebSocket('ws://145.93.62.41:8086');
+        this.connection = new WebSocket('ws://' + ip + ':8086');
 
         this.connection.onopen = evt => {
             console.log("Connection opened, joining exchange with code '" + this.state.code + "'");
@@ -27,7 +29,6 @@ class Editor extends React.Component {
             this.connection.send(JSON.stringify(message));
         };
         // this.connection = new WebSocket('ws://192.168.34.25:8085'); // adversitement
-        // ws://145.93.62.78:8085
 
         // listen to onmessage event
         this.connection.onmessage = evt => {
@@ -45,7 +46,7 @@ class Editor extends React.Component {
             this.connectWebSocket();
         } else {
             console.log("We do not have a code. Requesting a new one.");
-            fetch('http://145.93.62.41:4567/newEditor')
+            fetch('http://' + ip + ':4567/newEditor')
                 .then(response => response.json())
                 .then(jsonResponse => this.setState({code: jsonResponse.message}))
                 .then(thing => this.connectWebSocket())

@@ -5,6 +5,8 @@ const button_style_bottom = {
     marginBottom: 0,
 };
 
+const ip = '145.93.61.103';
+
 class JoinEditor extends React.Component {
 
     constructor(props) {
@@ -29,7 +31,7 @@ class JoinEditor extends React.Component {
             return;
         }
 
-        fetch('http://145.93.62.41:4567/joinEditor?code=' + code)
+        fetch('http://' + ip + ':4567/joinEditor?code=' + code)
             .then(response => {
                 if (response.ok) {
                     const jsonResponse = response.json();
