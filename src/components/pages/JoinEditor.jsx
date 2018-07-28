@@ -5,7 +5,7 @@ const button_style_bottom = {
     marginBottom: 0,
 };
 
-const ip = '145.93.61.103';
+const ip = '192.168.2.13';
 
 class JoinEditor extends React.Component {
 

@@ -4,7 +4,7 @@ const button_style_bottom = {
     marginBottom: 0,
 };
 
-const ip = 'localhost';
+const ip = '192.168.2.13';
 
 class Editor extends React.Component {
 
